@@ -57,11 +57,15 @@ alter both the body and the header of the message.
 This returns a list of all the attachments we found in the message,
 as a hash of { filename, content_type, payload }.
 
+=head1 PERL EMAIL PROJECT
+
+This module is maintained by the Perl Email Project
+
+  L<http://emailproject.perl.org/wiki/Email::MIME::Attachment::Stripper>
+
 =head1 AUTHOR
 
 Casey West <casey@geeknest.com>
-
-http://pep.kwiki.org
 
 =head1 CREDITS AND LICENSE
 

@@ -33,10 +33,14 @@ METHODS
     This returns a list of all the attachments we found in the message, as a
     hash of { filename, content_type, payload }.
 
+PERL EMAIL PROJECT
+
+This module is maintained by the Perl Email Project
+
+  http://emailproject.perl.org/wiki/Email::MIME::Attachment::Stripper
+
 AUTHOR
     Casey West <casey@geeknest.com>
-
-    http://pep.kwiki.org
 
 CREDITS AND LICENSE
     This module is incredibly closely derived from Tony Bowden's
