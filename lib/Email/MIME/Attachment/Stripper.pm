@@ -3,7 +3,7 @@ package Email::MIME::Attachment::Stripper;
 use strict;
 use warnings;
 
-our $VERSION = '1.31';
+our $VERSION = '1.311';
 
 use Email::MIME;
 use Email::MIME::Modifier;
