@@ -1,0 +1,13 @@
+# http://module-build.sourceforge.net/META-spec.html
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         Email-MIME-Attachment-Stripper
+version:      1.31
+version_from: lib/Email/MIME/Attachment/Stripper.pm
+installdirs:  site
+requires:
+    Email::MIME:                   1.82
+    Email::MIME::ContentType:      1.0
+    Email::MIME::Modifier:         1.41
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.24
