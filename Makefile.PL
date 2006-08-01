@@ -3,14 +3,11 @@ use ExtUtils::MakeMaker;
 use strict;
 use warnings;
 
-my $PACKAGE = "Email::MIME::Attachment::Stripper";
-my $LOCN    = "lib/Email/MIME/Attachment/Stripper.pm";
-
 WriteMakefile(
 	AUTHOR        => 'Casey West <casey@geeknest.com>',
-	NAME          => $PACKAGE,
-	ABSTRACT_FROM => $LOCN,
-	VERSION_FROM  => $LOCN,
+	NAME          => "Email::MIME::Attachment::Stripper",
+	ABSTRACT_FROM => 'lib/Email/MIME/Attachment/Stripper.pm',
+	VERSION_FROM  => 'lib/Email/MIME/Attachment/Stripper.pm',
     PREREQ_PM     => {
                       'Email::MIME' => '1.82',
                       'Email::MIME::ContentType' => '1.0',

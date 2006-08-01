@@ -1,5 +1,10 @@
 Revision history for Mail::Message::Attachment::Stripper
 
+1.311   2007-08-01
+
+  - no code changes
+  - update Makefile.PL to be more mine-able
+
 1.31    2004-12-23
 
   - Rebuilt to use the Perl Email Project more effectively.
