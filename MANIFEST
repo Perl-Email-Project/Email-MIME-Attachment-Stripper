@@ -6,6 +6,8 @@ META.yml
 README
 t/01.t
 t/02.t
+t/pod.t
+t/pod-coverage.t
 t/Mail/attached1
 t/Mail/attached2
 t/Mail/attached3
