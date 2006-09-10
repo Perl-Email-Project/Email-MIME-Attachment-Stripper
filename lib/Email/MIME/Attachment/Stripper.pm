@@ -61,7 +61,7 @@ as a hash of { filename, content_type, payload }.
 
 This module is maintained by the Perl Email Project
 
-  L<http://emailproject.perl.org/wiki/Email::MIME::Attachment::Stripper>
+L<http://emailproject.perl.org/wiki/Email::MIME::Attachment::Stripper>
 
 =head1 AUTHOR
 
