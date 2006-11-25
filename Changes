@@ -1,6 +1,6 @@
 Revision history for Mail::Message::Attachment::Stripper
 
-1.312   2006-11-25
+1.313   2006-11-25
 
   - resolve bug 19988, make content-type check for inline text case-insens
   - packaging improvements
