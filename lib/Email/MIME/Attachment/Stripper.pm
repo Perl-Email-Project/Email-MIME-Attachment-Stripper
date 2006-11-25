@@ -3,7 +3,7 @@ package Email::MIME::Attachment::Stripper;
 use strict;
 use warnings;
 
-our $VERSION = '1.311';
+our $VERSION = '1.312';
 
 use Email::MIME;
 use Email::MIME::Modifier;
@@ -13,6 +13,12 @@ use Carp;
 =head1 NAME
 
 Email::MIME::Attachment::Stripper - Strip the attachments from a mail
+
+=head1 VERSION
+
+version 1.312
+
+  $id$
 
 =head1 SYNOPSIS
 
@@ -111,7 +117,7 @@ sub _detach_all {
         my $dp = $_->header('Content-Disposition') || 'inline';
         
         push(@keep, $_) and next
-          if $ct =~ m[text/plain] && $dp =~ /inline/;
+          if $ct =~ m[text/plain] && $dp =~ /inline/i;
         push @attach, $_;
         $self->_detach_all($_) if $_->parts > 1;
     }
