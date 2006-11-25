@@ -116,8 +116,9 @@ sub _detach_all {
         my $ct = $_->content_type                  || 'text/plain';
         my $dp = $_->header('Content-Disposition') || 'inline';
         
+        warn "CHECKING [$ct] [$dp]\n";
         push(@keep, $_) and next
-          if $ct =~ m[text/plain] && $dp =~ /inline/i;
+          if $ct =~ m[text/plain] && $dp =~ /inline/;
         push @attach, $_;
         $self->_detach_all($_) if $_->parts > 1;
     }
