@@ -24,8 +24,8 @@ version 1.313
 
 	my $stripper = Email::MIME::Attachment::Stripper->new($mail);
 
-	my Email::MIME $msg = $stripper->message;
-	my @attachments       = $stripper->attachments;
+	my $msg = $stripper->message;
+	my @attachments = $stripper->attachments;
 
 =head1 DESCRIPTION
 
@@ -51,7 +51,7 @@ Try harder to get a filename, making one up if necessary.
 
 =head2 message
 
-	my Email::MIME $msg = $stripper->message;
+	my $email_mime = $stripper->message;
 
 This returns the message with all the attachments detached. This will
 alter both the body and the header of the message.
