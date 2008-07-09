@@ -1,24 +1,21 @@
-package Email::MIME::Attachment::Stripper;
-
 use strict;
 use warnings;
+package Email::MIME::Attachment::Stripper;
 
-our $VERSION = '1.314';
+our $VERSION = '1.315';
 
-use Email::MIME;
+use Email::MIME 1.861;
 use Email::MIME::Modifier;
 use Email::MIME::ContentType;
 use Carp;
 
 =head1 NAME
 
-Email::MIME::Attachment::Stripper - Strip the attachments from a mail
+Email::MIME::Attachment::Stripper - strip the attachments from an email
 
 =head1 VERSION
 
-version 1.314
-
-  $id$
+version 1.315
 
 =head1 SYNOPSIS
 
@@ -29,25 +26,50 @@ version 1.314
 
 =head1 DESCRIPTION
 
-Given a Email::MIME object, detach all attachments from the
-message. These are then available separately.
+Given a Email::MIME object, detach all attachments from the message and make
+them available separately.
+
+The message you're left with might still be multipart, but it should only be
+multipart/alternative or multipart/related.  The related part might contain
+files used by an HTML part, but it should not contain any extra attachments.
+
+Given this message:
+
+  + multipart/mixed
+    - text/html
+    - application/pdf; disposition=attachment
+
+The PDF will be stripped.  Whether the returned message is a single text/html
+part or a multipart/mixed message with only the text/html part remaining in it
+is not yet guaranteed one way or the other.
 
 =head1 METHODS
 
 =head2 new 
 
-	my $stripper = Email::MIME::Attachment::Stripper->new($mail, %args);
+	my $stripper = Email::MIME::Attachment::Stripper->new($email, %args);
 
-This should be instantiated with a Email::MIME object. Current arguments
-supported:
+The constructor may be passed an Email::MIME object, a reference to a string,
+or any other value that Email::Abstract (if available) can cast to an
+Email::MIME object.
 
-=over 3
+Valid arguments include:
 
-=item force_filename
+  force_filename - try harder to get a filename, making one up if necessary
 
-Try harder to get a filename, making one up if necessary.
+=cut
 
-=back
+sub new {
+	my ($class, $email, %attr) = @_;
+	$email = Email::MIME->new($email) if (ref($email) || 'SCALAR') eq 'SCALAR';
+
+	croak "Need a message" unless ref($email) || do {
+	  require Email::Abstract;
+	  $email = Email::Abstract->cast($email, 'Email::MIME');
+	};
+
+	bless { message => $email, attr => \%attr }, $class;
+}
 
 =head2 message
 
@@ -56,6 +78,14 @@ Try harder to get a filename, making one up if necessary.
 This returns the message with all the attachments detached. This will
 alter both the body and the header of the message.
 
+=cut
+
+sub message {
+	my ($self) = @_;
+	$self->_detach_all unless exists $self->{attach};
+	return $self->{message};
+}
+
 =head2 attachments
 
 	my @attachments = $stripper->attachments;
@@ -63,43 +93,7 @@ alter both the body and the header of the message.
 This returns a list of all the attachments we found in the message,
 as a hash of { filename, content_type, payload }.
 
-=head1 PERL EMAIL PROJECT
-
-This module is maintained by the Perl Email Project
-
-L<http://emailproject.perl.org/wiki/Email::MIME::Attachment::Stripper>
-
-=head1 AUTHOR
-
-Currently maintained by Ricardo SIGNES <rjbs@cpan.org>
-
-Written by Casey West <casey@geeknest.com>
-
-=head1 CREDITS AND LICENSE
-
-This module is incredibly closely derived from Tony Bowden's
-L<Mail::Message::Attachment::Stripper>; this derivation was done by
-Simon Cozens (C<simon@cpan.org>), and you receive this under the same
-terms as Tony's original module.
-
 =cut
-
-sub new {
-	my ($class, $message, %attr) = @_;
-	$message = Email::MIME->new($message) if !ref($message);
-
-	croak "Need a message" unless ref($message) || do {
-	    require Email::Abstract;
-	    $message = Email::Abstract->cast($message, 'Email::MIME');
-	};
-	bless { message => $message, attr => \%attr }, $class;
-}
-
-sub message {
-	my ($self) = @_;
-	$self->_detach_all unless exists $self->{attach};
-	return $self->{message};
-}
 
 sub attachments {
 	my $self = shift;
@@ -121,7 +115,10 @@ sub _detach_all {
         push(@keep, $_) and next
           if $ct =~ m[text/plain]i && $dp =~ /inline/i;
         push @attach, $_;
-        $self->_detach_all($_) if $_->parts > 1;
+  if ($_->parts > 1) {
+          my @kept=$self->_detach_all($_);
+    push(@keep,@kept) if @kept;
+        }
     }
     $part->parts_set(\@keep);
     push @{$self->{attach}}, map {
@@ -137,6 +134,29 @@ sub _detach_all {
                             : ($_->filename || ''),
         }
     } @attach;
+
+    return @keep;
 }
+
+=head1 PERL EMAIL PROJECT
+
+This module is maintained by the Perl Email Project
+
+L<http://emailproject.perl.org/wiki/Email::MIME::Attachment::Stripper>
+
+=head1 AUTHOR
+
+Currently maintained by Ricardo SIGNES <rjbs@cpan.org>
+
+Written by Casey West <casey@geeknest.com>
+
+=head1 CREDITS AND LICENSE
+
+This module is incredibly closely derived from Tony Bowden's
+L<Mail::Message::Attachment::Stripper>; this derivation was done by Simon
+Cozens (C<simon@cpan.org>), and you receive this under the same terms as Tony's
+original module.
+
+=cut
 
 1;
