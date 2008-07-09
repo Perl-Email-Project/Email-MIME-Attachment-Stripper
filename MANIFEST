@@ -1,15 +1,19 @@
 Changes
 lib/Email/MIME/Attachment/Stripper.pm
+LICENSE
 Makefile.PL
 MANIFEST			This list of files
 README
 t/01.t
 t/02.t
-t/nested-parts.t
-t/pod.t
-t/pod-coverage.t
+t/altern.t
+t/Mail/altern.msg
 t/Mail/attached1
 t/Mail/attached2
 t/Mail/attached3
 t/Mail/attached4
-LICENSE
+t/Mail/mixed.msg
+t/mixed.t
+t/nested-parts.t
+t/pod-coverage.t
+t/pod.t

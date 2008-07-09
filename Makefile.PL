@@ -8,7 +8,7 @@ WriteMakefile(
 	VERSION_FROM  => 'lib/Email/MIME/Attachment/Stripper.pm',
   (eval { ExtUtils::MakeMaker->VERSION(6.21) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM     => {
-    'Email::MIME'              => '1.82',
+    'Email::MIME'              => '1.861', # new(\$str)
     'Email::MIME::ContentType' => '1.0',
     'Email::MIME::Modifier'    => '1.442', # otherwise, scalar deref bug
   },
