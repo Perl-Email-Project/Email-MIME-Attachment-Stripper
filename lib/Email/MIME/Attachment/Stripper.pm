@@ -30,17 +30,16 @@ Given a Email::MIME object, detach all attachments from the message and make
 them available separately.
 
 The message you're left with might still be multipart, but it should only be
-multipart/alternative or multipart/related.  The related part might contain
-files used by an HTML part, but it should not contain any extra attachments.
+multipart/alternative or multipart/related.
 
 Given this message:
 
   + multipart/mixed
-    - text/html
+    - text/plain
     - application/pdf; disposition=attachment
 
-The PDF will be stripped.  Whether the returned message is a single text/html
-part or a multipart/mixed message with only the text/html part remaining in it
+The PDF will be stripped.  Whether the returned message is a single text/plain
+part or a multipart/mixed message with only the text/plain part remaining in it
 is not yet guaranteed one way or the other.
 
 =head1 METHODS
@@ -75,8 +74,8 @@ sub new {
 
 	my $email_mime = $stripper->message;
 
-This returns the message with all the attachments detached. This will
-alter both the body and the header of the message.
+This returns the message with all the attachments detached. This will alter
+both the body and the header of the message.
 
 =cut
 
@@ -90,8 +89,11 @@ sub message {
 
 	my @attachments = $stripper->attachments;
 
-This returns a list of all the attachments we found in the message,
-as a hash of { filename, content_type, payload }.
+This returns a list of all the attachments we found in the message, as a hash
+of { filename, content_type, payload }.
+
+This may contain parts that might not normally be considered attachments, like
+text/html or multipart/alternative.
 
 =cut
 

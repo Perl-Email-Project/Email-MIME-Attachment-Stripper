@@ -1,5 +1,10 @@
 Revision history for Email::MIME::Attachment::Stripper
 
+1.315     2008-07-08
+          http://rt.cpan.org/Public/Bug/Display.html?id=20536
+          improve docs, improve handling of nested multipart
+          thanks to DROLSKY and to the guys at Best Practical
+
 1.314     2007-10-02
           bug fix: bump up prereq on Email::MIME::Modifier
           (fixes a scalar deref issue, reported by JESSE)
