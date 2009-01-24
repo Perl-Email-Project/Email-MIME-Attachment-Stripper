@@ -1,4 +1,7 @@
-Revision history for Email::MIME::Attachment::Stripper
+Revision history for Email-MIME-Attachment-Stripper
+
+1.316     2009-01-22
+          add repo location metadata
 
 1.315     2008-07-08
           http://rt.cpan.org/Public/Bug/Display.html?id=20536

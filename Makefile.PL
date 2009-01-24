@@ -17,4 +17,12 @@ WriteMakefile(
 		SUFFIX       => '.gz',
 		DIST_DEFAULT => 'all tardist',
 	},
+  (eval { ExtUtils::MakeMaker->VERSION(6.46) }
+    ? (META_MERGE => {
+        resources => {
+          Repository => 'http://github.com/rjbs/email-mime-attachment-stripper'
+        }
+      })
+    : ()
+  ),
 );

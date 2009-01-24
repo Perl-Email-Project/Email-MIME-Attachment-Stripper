@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package Email::MIME::Attachment::Stripper;
 
-our $VERSION = '1.315';
+our $VERSION = '1.316';
 
 use Email::MIME 1.861;
 use Email::MIME::Modifier;
@@ -15,7 +15,7 @@ Email::MIME::Attachment::Stripper - strip the attachments from an email
 
 =head1 VERSION
 
-version 1.315
+version 1.316
 
 =head1 SYNOPSIS
 
