@@ -14,6 +14,13 @@ use Carp;
 	my $msg = $stripper->message;
 	my @attachments = $stripper->attachments;
 
+=head1 ATTENTION!
+
+This module's behavior has never been very clearly spelled out, and it has led
+to misunderstandings and bug reports, which may or may not be actual bugs.  I
+plan to take some significant action to address this.  To read more or comment,
+please see L<https://github.com/rjbs/Email-MIME-Attachment-Stripper/issues/2>
+
 =head1 DESCRIPTION
 
 Given a Email::MIME object, detach all attachments from the message and make
