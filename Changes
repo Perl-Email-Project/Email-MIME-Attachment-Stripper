@@ -1,5 +1,13 @@
 Revision history for Email-MIME-Attachment-Stripper
 
+{{$NEXT}}
+
+1.317     2013-08-31 23:44:32 America/New_York
+          update repo and bugtracker information
+
+          no significant changes, but please see a note on the future:
+          https://github.com/rjbs/Email-MIME-Attachment-Stripper/issues/2
+
 1.316     2009-01-22
           add repo location metadata
 
