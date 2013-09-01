@@ -1,21 +1,11 @@
 use strict;
 use warnings;
 package Email::MIME::Attachment::Stripper;
+# ABSTRACT: strip the attachments from an email
 
-our $VERSION = '1.316';
-
-use Email::MIME 1.861;
-use Email::MIME::Modifier;
-use Email::MIME::ContentType;
+use Email::MIME 1.861; # new(\$str)
+use Email::MIME::ContentType 1.016; # type/subtype
 use Carp;
-
-=head1 NAME
-
-Email::MIME::Attachment::Stripper - strip the attachments from an email
-
-=head1 VERSION
-
-version 1.316
 
 =head1 SYNOPSIS
 
@@ -42,9 +32,7 @@ The PDF will be stripped.  Whether the returned message is a single text/plain
 part or a multipart/mixed message with only the text/plain part remaining in it
 is not yet guaranteed one way or the other.
 
-=head1 METHODS
-
-=head2 new 
+=method new 
 
 	my $stripper = Email::MIME::Attachment::Stripper->new($email, %args);
 
@@ -70,7 +58,7 @@ sub new {
 	bless { message => $email, attr => \%attr }, $class;
 }
 
-=head2 message
+=method message
 
 	my $email_mime = $stripper->message;
 
@@ -85,7 +73,7 @@ sub message {
 	return $self->{message};
 }
 
-=head2 attachments
+=method attachments
 
 	my @attachments = $stripper->attachments;
 
@@ -127,8 +115,8 @@ sub _detach_all {
         my $content_type = parse_content_type($_->content_type);
         {
             content_type => join(
-                                 '/', 
-                                 @{$content_type}{qw[discrete composite]}
+                                 '/',
+                                 @{$content_type}{qw[type subtype]}
                                 ),
             payload      => $_->body,
             filename     =>   $self->{attr}->{force_filename}
@@ -139,18 +127,6 @@ sub _detach_all {
 
     return @keep;
 }
-
-=head1 PERL EMAIL PROJECT
-
-This module is maintained by the Perl Email Project
-
-L<http://emailproject.perl.org/wiki/Email::MIME::Attachment::Stripper>
-
-=head1 AUTHOR
-
-Currently maintained by Ricardo SIGNES <rjbs@cpan.org>
-
-Written by Casey West <casey@geeknest.com>
 
 =head1 CREDITS AND LICENSE
 
